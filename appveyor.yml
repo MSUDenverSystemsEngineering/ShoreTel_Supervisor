@@ -26,3 +26,40 @@ artifacts:
 deploy:
 - provider: Environment
   name: FileServer
+notifications:
+- provider: Webhook
+  url: https://msudenver.webhook.office.com/webhookb2/dc44621d-45b2-4321-840e-150c8de1fd96@03309ca4-1733-4af9-a73c-f18cc841325c/IncomingWebhook/aba499ffe4694db680453d69e9164a00/2caf0698-fcd6-4523-999c-1a26d166db78
+  method: POST
+  content_type: application/json
+  body: >-
+    {
+        "title": "AppVeyor Build {{#passed}}passed{{/passed}}{{#failed}}failed{{/failed}}",
+        "summary": "Build {{projectName}} {{buildVersion}} {{status}}",
+        "themeColor": "{{#passed}}00FF00{{/passed}}{{#failed}}FF0000{{/failed}}",
+        "sections": [
+            {
+                "activityTitle": "{{commitAuthor}} on {{commitDate}} ( {{repositoryProvider}}/{{repositoryName}} )",
+                "activityText": "[Build {{projectName}} {{buildVersion}} {{status}}]({{buildUrl}})"
+            },
+            {
+                "title": "Details",
+                "facts": [
+                    {
+                        "name": "Commit",
+                        "value": "[{{commitId}} by {{commitAuthor}} on {{branch}} at {{commitDate}}]({{commitUrl}})"
+                    },
+                    {
+                        "name": "Message",
+                        "value": "{{commitMessage}}"
+                    },
+                    {
+                        "name": "Duration",
+                        "value": "{{duration}} ({{started}} - {{finished}})"
+                    }
+                ]
+            }
+        ]
+    }
+  on_build_success: true
+  on_build_failure: true
+  on_build_status_changed: true
