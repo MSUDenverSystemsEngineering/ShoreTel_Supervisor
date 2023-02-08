@@ -68,7 +68,7 @@ Try {
 	[string]$appArch = 'x86'
 	[string]$appLang = 'EN'
 	[string]$appRevision = '01'
-	[string]$appScriptVersion = '7.0.0'
+	[string]$appScriptVersion = '4.0.1'
 	[string]$appScriptDate = '02/07/2023'
 	[string]$appScriptAuthor = 'Ryan McKenna'
 	##*===============================================
@@ -124,7 +124,8 @@ Try {
 		Show-InstallationProgress
 
 		## <Perform Pre-Installation tasks here>
-
+		## Install Java RE 8 update 66
+		Execute-Process -Path "jre-8u66-windows-i586.exe" -Parameters "/s"
 
 		##*===============================================
 		##* INSTALLATION
@@ -162,7 +163,7 @@ Try {
 		Show-InstallationProgress
 
 		## <Perform Pre-Uninstallation tasks here>
-
+		Remove-MSIApplications -Name "Java 8 Update 66" -ContinueOnError $True
 
 		##*===============================================
 		##* UNINSTALLATION
@@ -242,8 +243,8 @@ Catch {
 # SIG # Begin signature block
 # MIImVgYJKoZIhvcNAQcCoIImRzCCJkMCAQExDzANBglghkgBZQMEAgEFADB5Bgor
 # BgEEAYI3AgEEoGswaTA0BgorBgEEAYI3AgEeMCYCAwEAAAQQH8w7YFlLCE63JNLG
-# KX7zUQIBAAIBAAIBAAIBAAIBADAxMA0GCWCGSAFlAwQCAQUABCAz6xWPbu61kmTP
-# /fFXgF5+eP0vw98mSYaGtcJ7+OdpmKCCH8EwggVvMIIEV6ADAgECAhBI/JO0YFWU
+# KX7zUQIBAAIBAAIBAAIBAAIBADAxMA0GCWCGSAFlAwQCAQUABCAg1VkXpFS2PQBg
+# EI8UMtQlnFumTipfSfWIO5CUkFNS+aCCH8EwggVvMIIEV6ADAgECAhBI/JO0YFWU
 # jTanyYqJ1pQWMA0GCSqGSIb3DQEBDAUAMHsxCzAJBgNVBAYTAkdCMRswGQYDVQQI
 # DBJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAOBgNVBAcMB1NhbGZvcmQxGjAYBgNVBAoM
 # EUNvbW9kbyBDQSBMaW1pdGVkMSEwHwYDVQQDDBhBQUEgQ2VydGlmaWNhdGUgU2Vy
@@ -417,32 +418,32 @@ Catch {
 # ZDErMCkGA1UEAxMiU2VjdGlnbyBQdWJsaWMgQ29kZSBTaWduaW5nIENBIFIzNgIR
 # AKVN33D73PFMVIK48rFyyjEwDQYJYIZIAWUDBAIBBQCggYQwGAYKKwYBBAGCNwIB
 # DDEKMAigAoAAoQKAADAZBgkqhkiG9w0BCQMxDAYKKwYBBAGCNwIBBDAcBgorBgEE
-# AYI3AgELMQ4wDAYKKwYBBAGCNwIBFTAvBgkqhkiG9w0BCQQxIgQgExRSMmqy1Ujf
-# S5cmb4kjH2RUMDewb3B6KbR+DiqkKZIwDQYJKoZIhvcNAQEBBQAEggGAg8WW4C6q
-# 2E/27qO2REiVf054uYrz4eS487SJ//fs+b2eGOKvMBqOs9hjfEthVkKpc3KLu2Tp
-# 3aRf/nuh3Q6NletlzcvhULmc00uEDTUi7NHjXdWS+43D29gcYYSm5V0+HxYCJPkE
-# 1q2Y2M6HRVChzbKxXIhY0q1JCjlYs3gQr+G4bvRMf4jlxKF83yOiLVg+tY+/kkmE
-# vSzzXi56kd7gE0FW6Igtu6m4/JsTMUhqAASyHAAwtXJzRD2jwPjLxArrgpZAhibG
-# qOKedtv1YisEfejU4CV5z2gmP9Z3ZED/62nKfRtZasgLytSKLi5Q+ki5lQyfkPX8
-# 3LNGcQUcYR8M0hh5NhJiVMCWQRa1NtzbeAtSP+aAonVXzcLqNKj7UAKsLspS48T6
-# 6Av0vd8VcrnMjAiVdOILYkagtfHMqZY6Yt9zRAq6XbwnM3CKU6bZFhoJBd6VXDlB
-# 4qbTjyxLnpmmciF1KxrkkQFf8gu6/TIkWRHZ37heAi49/T/5OlqdvlP0oYIDTDCC
+# AYI3AgELMQ4wDAYKKwYBBAGCNwIBFTAvBgkqhkiG9w0BCQQxIgQgQq1eM5IoNqW2
+# Ywk88TdZutd0lp1vQsRwN7kad55Y1QkwDQYJKoZIhvcNAQEBBQAEggGAUN4TuNc+
+# OxaJ6B9i0qj1VGvocxohsvjuqah/sDnD1aW7ISVrRR9SVUaO+ADgZkdftVUbglss
+# LpSjupZaImNi3rai43bGBMtMv95S5eJ0JcpPwxt7CS/wzZILePA0Ik9MZ8J68yri
+# hCQp3wVucFr+WZ4yzSo5TOyIpqLRoplDU/bXymUy8DGeeQZ/Uh7+xAPeciLPkM85
+# qY7BTCDOcrvPp5OTNO0hukoStpIQKN0wIZJeMUvyRqI/phKNjdGO/bWfe4SehpFx
+# tL/lPXnqcRpXuiagwURrvDka6DW3ik6x9hL5qTlloJ6kREtTuGXyTBQjcBrJRA5x
+# SSQlBtfOVacJp0KTOijYsbIQGCMfkvSBnu6e3zRpVe2GFmeO4tgk1/XCthvRrYPl
+# XrXYAZQMiOENYNDQ66S9BbvnlqckR0nfy3GcY7B9Hb4D/OdMMlobzOHKRh/Fu1Yu
+# CLST3e2dnK2TzwBuU97PF1MVheccrM4ccjonN/cnbf/lYltBbQrSrzHToYIDTDCC
 # A0gGCSqGSIb3DQEJBjGCAzkwggM1AgEBMIGSMH0xCzAJBgNVBAYTAkdCMRswGQYD
 # VQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAOBgNVBAcTB1NhbGZvcmQxGDAWBgNV
 # BAoTD1NlY3RpZ28gTGltaXRlZDElMCMGA1UEAxMcU2VjdGlnbyBSU0EgVGltZSBT
 # dGFtcGluZyBDQQIRAJA5f5rSSjoT8r2RXwg4qUMwDQYJYIZIAWUDBAICBQCgeTAY
 # BgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwGCSqGSIb3DQEJBTEPFw0yMzAyMDgw
-# MDEwMzBaMD8GCSqGSIb3DQEJBDEyBDBj1qEQbTC4sngkAjQwk/GG7Fk29jX00gv4
-# dFLzmlNe8Fp6SHxhKTe6NF8ShWjlEPYwDQYJKoZIhvcNAQEBBQAEggIAbBSfTsDk
-# pV9uWpVLN989V2+XCMPZnGzXv9mcHrxqofWT0zs5d8gXNjIi3n7BaGDCbfgXQzRQ
-# WXCiMvUPT0HBJ8uqN5C9rfgI1AEtBs1CBvBtIYfHFvS+C8Gf3z6djFuKcWpo1AsI
-# mLCoCEtUXLJF4OacuZXfvEFttxrqbdygASmKvsmNQrJBzVvX+uEKH9ALo1kURKOh
-# jVhF42KR6Jsu9l51+/0+Ofcv9n8KeLyp6hE8gqNViJKLkR1mKuf93y80MR2smvTJ
-# uQ92HZ/YikHpQlaT2loE3MD0xjAGrrpyE+eDXtcvbxL2XehULkjgB9jQ/OuaH28b
-# X8J5oNb8pLrkszH/XqhlwyTY1iofczbYSg7Ue8rRZbp22XH5eQNmkPzMyL88blfF
-# U6EnpK6VGrOf3r/zSnJxhxD5+vH4/be4Xfko+o3gNJpyiRR5B1T2bMH5SS3s6kYq
-# uarcUMEvedCY4rq0/LPzS5MSADwTd11/hYVbu2gVassbENPwTnq5RqJVi/Uc2D2O
-# ZLKimLdVk6biFdo/+lnRjigGbAsMa2JZ/3x/T5WsHY8NJh8lLXNWKPARGoOQBlEl
-# hZioi6xlCx+P4E4bdFn2s7FcmaOKPvCyMRcT24Ps8I49HUvRbHhsHpMgKoYsa/b4
-# iJM6l+H14DNGgQ9k5vyHWVoZuv/7JdGzmMY=
+# MTE1MzRaMD8GCSqGSIb3DQEJBDEyBDCUCMGhrd8SDMvV+fe3vp/jJwHuuT776T4p
+# Vj9O4sHRk+9NizYYqBw0X6G3fEk5LRowDQYJKoZIhvcNAQEBBQAEggIAiDja+g+G
+# SoluG4GusjP5varesfKhZIxv6wnca0ocoRB9iViRLhf2278sVtBfO1aTD1kMsVYB
+# 9EASp85AkA7+QunW6/GPv5dMBH+pLUccRgw9bS80MSW9I99bvwuiKxVyVVuxxKZW
+# rAFCj2ofIsmG+yF/7VMBcaeFdAIInQpiaHRbk6Jo9YJYVteSGgAJPk21ne2GJBUQ
+# NPAKVhUqpUSTCguI4xDVIDL4iCUbLNBQSONjR6OMfaWFoW1XqHz1akPbfMU4PfBy
+# 1xbw2FLVVxchA8NbSHbti7Ju92QmGVRaTsLaggFZ3kdjqZX8PoApRYQwe4/soF5v
+# MsPwfN5oX1xVsBB5IbzhMK8Yzp+T0kfrieihq+bAI6qBQJwb2O/Cbw09Oo4TTplM
+# r6RzapWoo6F85Eu5fSLxC8Q+Dn9wAbRtrIZpgjtPzNZgw/GFmCRwCT5eV1bRVgyj
+# FBG3gRdB639seKf/3wsVTEIarjoJPRhuB0DnoykkKBtbY1Ic5UStNfy2vtN/ou3Z
+# 1Em5aV3DfVkY87TyX5c4uWWvzfmgi36GfbbJSMzhhsWAxwcq893SDYRyRuUYiA5r
+# sTMLkw+EmgudqzBikd1eTLmH7zN1qcoEYhJ2QV/ZDsT/koovSH97ahb5fAiZbdHP
+# t/YqoGfbD4mFFoBTtIz6R16Xo6ZTxrQ3ukc=
 # SIG # End signature block
